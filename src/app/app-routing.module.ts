@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { QuestionsComponent } from './components/questions/questions.component';
+import { ResultsComponent } from './components/results/results.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'quiz/:subjectTitle',
     component: QuestionsComponent,
+  },
+  {
+    path: 'results',
+    component: ResultsComponent,
   },
 ];
 

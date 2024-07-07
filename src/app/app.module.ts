@@ -13,6 +13,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     HomeComponent,
     QuestionsComponent,
+    ResultsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, MatIconModule, HttpClientModule],
   providers: [provideClientHydration(), provideAnimationsAsync()],

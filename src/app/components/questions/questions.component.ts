@@ -72,7 +72,7 @@ export class QuestionsComponent implements OnInit {
       this.loadQuestion(this.currentQuestionIndex);
     } else {
       console.log('Quiz completed! Score:', this.score);
-      this.router.navigate(['/result']);
+      this.router.navigate(['/results']);
     }
   }
 }
