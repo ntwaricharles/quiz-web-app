@@ -9,6 +9,7 @@ import { QuizService } from '../../services/quiz.service';
 })
 export class QuestionsComponent implements OnInit {
   subjectTitle: string | null = null;
+  subjectIcon: string | null = null; // Assuming you fetch this as well
   questions: any[] = [];
   currentQuestionIndex = 0;
   currentQuestion: any = null;
@@ -28,6 +29,7 @@ export class QuestionsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.subjectTitle = params.get('subjectTitle');
+      this.subjectIcon = 'icon-accessibility'; // Update this if you have a method to fetch the actual icon
       if (this.subjectTitle) {
         this.questions = this.quizService.getQuestions(this.subjectTitle);
         console.log(this.questions);
@@ -72,7 +74,14 @@ export class QuestionsComponent implements OnInit {
       this.loadQuestion(this.currentQuestionIndex);
     } else {
       console.log('Quiz completed! Score:', this.score);
-      this.router.navigate(['/results']);
+      this.router.navigate(['/results'], {
+        queryParams: {
+          score: this.score,
+          total: this.questions.length,
+          subjectTitle: this.subjectTitle,
+          subjectIcon: this.subjectIcon,
+        },
+      });
     }
   }
 }
