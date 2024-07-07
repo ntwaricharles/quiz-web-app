@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { QuizService } from '../../services/quiz.service';
 
@@ -21,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   fetchSubjects(): void {
     this.subjects = this.quizService.getSubjects();
-    console.log('subsjects', this.subjects);
+    console.log(this.subjects)
   }
 
   onSubjectSelected(subjectTitle: string) {

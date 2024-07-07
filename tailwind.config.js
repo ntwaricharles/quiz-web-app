@@ -20,20 +20,6 @@ module.exports = {
       fontFamily: {
         primary: ["Rubik", "sans-serif"],
       },
-      backgroundImage: {
-        "desktop-light":
-          "url('./assets/images/pattern-background-desktop-light.svg')",
-        "desktop-dark":
-          "url('./assets/images/pattern-background-desktop-dark.svg')",
-        "tablet-light":
-          "url('./assets/images/pattern-background-tablet-light.svg')",
-        "tablet-dark":
-          "url('./assets/images/pattern-background-tablet-dark.svg')",
-        "mobile-light":
-          "url('./assets/images/pattern-background-mobile-light.svg')",
-        "mobile-dark":
-          "url('./assets/images/pattern-background-mobile-dark.svg')",
-      },
     },
   },
   plugins: [],

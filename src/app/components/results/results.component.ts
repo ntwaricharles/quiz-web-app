@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -12,7 +13,7 @@ export class ResultsComponent implements OnInit {
   subjectTitle: string = '';
   subjectIcon: string = '';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
@@ -24,6 +25,6 @@ export class ResultsComponent implements OnInit {
   }
 
   playAgain(): void {
-    // Logic to start the quiz again
+    this.router.navigate(['/']);
   }
 }
