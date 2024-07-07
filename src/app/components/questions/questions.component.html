@@ -69,8 +69,8 @@
         {{ answered ? "Next Question" : "Submit Answer" }}
       </button>
     </div>
-    <div *ngIf="showError" class="text-red-500 mt-3">
-      Please select an answer before submitting.
-    </div>
+    <p *ngIf="showError" class="text-red-500 mt-2 text-red">
+      Please select an answer.
+    </p>
   </div>
 </div>
