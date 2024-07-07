@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../services/quiz.service';
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
-  styleUrl: './questions.component.css',
+  styleUrls: ['./questions.component.css'],
 })
 export class QuestionsComponent implements OnInit {
   subjectTitle: string | null = null;
@@ -16,6 +17,7 @@ export class QuestionsComponent implements OnInit {
   correctAnswer: boolean | null = null;
   score = 0;
   answered: boolean | null = null;
+  showError: boolean = false;
 
   constructor(
     private router: Router,
@@ -41,22 +43,30 @@ export class QuestionsComponent implements OnInit {
     this.selectedAnswer = null;
     this.showResult = false;
     this.answered = false;
+    this.showError = false;
   }
 
   selectAnswer(option: string): void {
     if (!this.answered) {
       this.selectedAnswer = option;
-      this.showResult = true;
-      this.correctAnswer = this.selectedAnswer === this.currentQuestion.answer;
-      this.answered = true;
+      this.showError = false;
+    }
+  }
 
+  submitAnswer(): void {
+    if (this.selectedAnswer === null) {
+      this.showError = true;
+    } else {
+      this.showResult = true;
+      this.answered = true;
+      this.correctAnswer = this.selectedAnswer === this.currentQuestion.answer;
       if (this.correctAnswer) {
         this.score++;
       }
     }
   }
 
-  submitAnswer(): void {
+  nextQuestion(): void {
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
       this.loadQuestion(this.currentQuestionIndex);
