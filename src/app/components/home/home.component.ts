@@ -1,26 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { QuizService } from '../../services/quiz.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-  isDarkMode: boolean = false;
+  subjects: any[] = [];
+  questions: any[] = [];
+  selectedSubject = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private router: Router, private quizService: QuizService) {}
 
   ngOnInit(): void {
-    this.isDarkMode = document.documentElement.classList.contains('dark');
-    this.toggleDarkModeListener();
+    this.fetchSubjects();
   }
 
-  toggleDarkModeListener(): void {
-    const darkModeToggle = document.getElementById('toggle-dark-mode');
-    if (darkModeToggle) {
-      darkModeToggle.addEventListener('click', () => {
-        this.isDarkMode = document.documentElement.classList.toggle('dark');
-      });
-    }
+  fetchSubjects(): void {
+    this.subjects = this.quizService.getSubjects();
+    console.log('subsjects', this.subjects);
+  }
+
+  onSubjectSelected(subjectTitle: string) {
+    this.selectedSubject.emit(subjectTitle);
+    this.router.navigate(['/quiz', subjectTitle]);
   }
 }
