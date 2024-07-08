@@ -5,12 +5,14 @@ import { QuizService } from '../../services/quiz.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   subjects: any[] = [];
-  questions: any[] = [];
-  selectedSubject = new EventEmitter<string>();
+  @Output() selectedSubject = new EventEmitter<{
+    title: string;
+    icon: string;
+  }>();
 
   constructor(private router: Router, private quizService: QuizService) {}
 
@@ -20,11 +22,11 @@ export class HomeComponent implements OnInit {
 
   fetchSubjects(): void {
     this.subjects = this.quizService.getSubjects();
-    console.log(this.subjects)
+    console.log(this.subjects);
   }
 
-  onSubjectSelected(subjectTitle: string) {
-    this.selectedSubject.emit(subjectTitle);
-    this.router.navigate(['/quiz', subjectTitle]);
+  onSubjectSelected(subject: { title: string; icon: string }) {
+    this.selectedSubject.emit(subject);
+    this.router.navigate(['/quiz', subject.title]);
   }
 }
