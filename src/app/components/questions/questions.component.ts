@@ -33,14 +33,14 @@ export class QuestionsComponent implements OnInit {
       if (this.subjectTitle) {
         this.questions = this.quizService.getQuestions(this.subjectTitle);
         this.currentQuestion = this.questions[this.currentQuestionIndex];
-        this.correctAnswer = this.currentQuestion.answer;
+        this.correctAnswer = this.currentQuestion?.answer;
       }
     });
   }
 
   loadQuestion(index: number): void {
     this.currentQuestion = this.questions[index];
-    this.correctAnswer = this.currentQuestion.answer;
+    this.correctAnswer = this.currentQuestion?.answer;
     this.selectedAnswer = null;
     this.showResult = false;
     this.answered = false;
@@ -60,7 +60,7 @@ export class QuestionsComponent implements OnInit {
     } else {
       this.showResult = true;
       this.answered = true;
-      this.correctAnswer = this.selectedAnswer === this.currentQuestion.answer;
+      this.correctAnswer = this.selectedAnswer === this.currentQuestion?.answer;
       if (this.correctAnswer) {
         this.score++;
       }
