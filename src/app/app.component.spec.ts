@@ -1,35 +1,55 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterModule.forRoot([])
-      ],
-      declarations: [
-        AppComponent
-      ],
+  let component: AppComponent;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
     }).compileComponents();
+
+    const fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'quiz-web-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('quiz-web-app');
+  it('should have initial title as "quiz-web-app"', () => {
+    expect(component.title).toBe('quiz-web-app');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, quiz-web-app');
+  it('should start with dark mode switched off', () => {
+    expect(component.switchedToDarkMode).toBe(false);
+  });
+
+  describe('switchThemes', () => {
+    it('should toggle dark mode and add/remove class on body', () => {
+      // Spy on document.querySelector and mock classList.add and classList.remove
+      const querySelectorSpy = jest
+        .spyOn(document, 'querySelector')
+        .mockReturnValue({
+          classList: {
+            add: jest.fn(),
+            remove: jest.fn(),
+          },
+        } as unknown as HTMLElement);
+
+      // First call: switch to dark mode
+      component.switchThemes();
+      expect(component.switchedToDarkMode).toBe(true);
+      const body = document.querySelector('body');
+      expect(body?.classList.add).toHaveBeenCalledWith('dark');
+
+      // Second call: switch back to light mode
+      component.switchThemes();
+      expect(component.switchedToDarkMode).toBe(false);
+      expect(body?.classList.remove).toHaveBeenCalledWith('dark');
+
+      // Restore the original implementation
+      querySelectorSpy.mockRestore();
+    });
   });
 });
