@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -10,15 +9,15 @@ import { Router } from '@angular/router';
 export class ResultsComponent implements OnInit {
   score: number = 0;
   totalQuestions: number = 0;
-  subjectTitle: string = '';
-  subjectIcon: string = '';
+  subjectTitle: string = 'Accessibility';
+  subjectIcon: string = 'icon-accessibility';
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.score = +params['score'];
-      this.totalQuestions = +params['total'];
+      this.score = +params['score'] || 0;
+      this.totalQuestions = +params['total'] || 0;
       this.subjectTitle = params['subjectTitle'] || 'Accessibility';
       this.subjectIcon = params['subjectIcon'] || 'icon-accessibility';
     });
